@@ -3,8 +3,8 @@ import matplotlib.pyplot as plt
 import torch
 from torch import nn, optim
 import torch.nn.functional as F
-from torchvision import datasets  # dataset 引用位置
-from torch.utils.data import DataLoader  # DataLoader 引用位置
+from torchvision import datasets  
+from torch.utils.data import DataLoader  
 from torchvision import transforms
 import os
 
@@ -23,17 +23,17 @@ test_loader = DataLoader(test_dataset, shuffle=False, batch_size=batch_size)
 class InceptionA(torch.nn.Module):
     def __init__(self, in_channels):
         super(InceptionA, self).__init__()
-        self.branch1x1 = nn.Conv2d(in_channels, 16, kernel_size=1)  # 乘号用字母x代替;
+        self.branch1x1 = nn.Conv2d(in_channels, 16, kernel_size=1)  
 
         self.branch5x5_1 = nn.Conv2d(in_channels, 16, kernel_size=1)
         self.branch5x5_2 = nn.Conv2d(16, 24, kernel_size=5, padding=2)
 
-        self.branch3x3_1 = nn.Conv2d(in_channels, 16, kernel_size=1)  # 第一个卷积核都是1x1，这个东西是减少操作数的，为了加速运算
+        self.branch3x3_1 = nn.Conv2d(in_channels, 16, kernel_size=1)  
         self.branch3x3_2 = nn.Conv2d(16, 24, kernel_size=3, padding=1)
         self.branch3x3_3 = nn.Conv2d(24, 24, kernel_size=3, padding=1)
 
         self.branch_pool = nn.Conv2d(in_channels, 24,
-                                     kernel_size=1)  # branch 这个词儿，在S2D引用的laina的代码里见过，一个是upper——branch，一个是bottom——branch；
+                                     kernel_size=1)  
 
     def forward(self, x):
         branch1x1 = self.branch1x1(x)
